@@ -22,4 +22,5 @@ public class User {
 
     @OneToMany(mappedBy = "manager")
     private List<Employee> employees;
+
 }
