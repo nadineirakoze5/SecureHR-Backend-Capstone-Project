@@ -20,6 +20,6 @@ public class Employee {
     private LocalDate hireDate;
 
     @ManyToOne
-    @JoinColumn(name = "Manager")
+    @JoinColumn(name = "manager_id")
     private User manager;
 }
