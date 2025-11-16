@@ -1,5 +1,6 @@
 package org.example.employeemanagementapi.Models;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Schema(description = "Employee entity representing employee records")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
