@@ -1,11 +1,13 @@
 package org.example.employeemanagementapi.DTOs;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
+@Schema(description = "Request body for registering a new user")
 public class RegisterRequest {
 
     @NotBlank(message = "Username is required")

@@ -1,5 +1,6 @@
 package org.example.employeemanagementapi.Controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,12 +19,14 @@ public class AuthController {
 
     private final UserService userService;
 
+    @Operation(summary = "Register a new user", description = "Creates a new user and stores their details in the database")
     @PostMapping("/register")
     public String register(@Valid @RequestBody RegisterRequest request) {
 
         return userService.register(request);
     }
 
+    @Operation(summary = "Login user", description = "Authenticates user and returns a JWT token")
     @PostMapping("/login")
     public LoginResponse login(@Valid @RequestBody LoginRequest request) {
 

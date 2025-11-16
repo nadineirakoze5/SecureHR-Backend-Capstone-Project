@@ -1,5 +1,6 @@
 package org.example.employeemanagementapi.Models;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
+@Schema(description = "User entity representing system users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
