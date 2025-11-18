@@ -9,6 +9,10 @@ import org.example.employeemanagementapi.GlobalHandler.ResourceNotFoundException
 import org.example.employeemanagementapi.Models.User;
 import org.example.employeemanagementapi.Repository.UserRepository;
 import org.example.employeemanagementapi.Security.JwtUtil;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -102,7 +106,7 @@ public class UserService {
                             throw new AccessDeniedException("You cannot update another user's account");
                         }
 
-                        //USER can update everything but their role
+                        //USER can update everything but not their role
                         target.setUsername(userRequestDTO.getUsername());
                         target.setEmail(userRequestDTO.getEmail());
                         target.setPassword(passwordEncoder.encode(userRequestDTO.getPassword()));
@@ -128,21 +132,21 @@ public class UserService {
                 }).orElseThrow(() -> new ResourceNotFoundException("User with id '" + id + "' was not found!"));
     }
 
-//    public Page<UserResponseDTO> getAllUsers( HttpServletRequest request, int page, int size, String sortBy, String direction){
-//        if (getActor(request).getRole().equals(Roles.ADMIN)) {
-//            Sort sort = direction.equalsIgnoreCase("desc")
-//                    ? Sort.by(sortBy).descending()
-//                    : Sort.by(sortBy).ascending();
-//
-//            Pageable pageable = PageRequest.of(page, size, sort);
-//
-//            Page<User> postsPage = userRepository.findAll(pageable);
-//
-//            return postsPage.map(this::toDto);
-//        }
-//
-//        throw  new AccessDeniedException("You are not allowed to access a list of all users.");
-//    }
+    public Page<UserResponseDTO> getAllUsers( HttpServletRequest request, int page, int size, String sortBy, String direction){
+        if (getActor(request).getRole().equals("ROLE_ADMIN")) {
+            Sort sort = direction.equalsIgnoreCase("desc")
+                    ? Sort.by(sortBy).descending()
+                    : Sort.by(sortBy).ascending();
+
+            Pageable pageable = PageRequest.of(page, size, sort);
+
+            Page<User> postsPage = userRepository.findAll(pageable);
+
+            return postsPage.map(this::toDto);
+        }
+
+        throw  new AccessDeniedException("You are not allowed to access a list of all users.");
+    }
 
     public String delete(Long id, HttpServletRequest request){
         grantAccessByRole(id, request);
