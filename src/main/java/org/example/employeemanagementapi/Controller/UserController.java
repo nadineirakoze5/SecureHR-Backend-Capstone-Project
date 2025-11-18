@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.example.employeemanagementapi.DTOs.UserRequestDTO;
 import org.example.employeemanagementapi.DTOs.UserResponseDTO;
 import org.example.employeemanagementapi.Service.UserService;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -121,32 +122,32 @@ public class UserController {
         return userService.updateUser(id, userRequestDTO, request);
     }
 
-//    @Operation(
-//            description = "This endpoint allows ADMIN role to view all users. This method also renders everything in form of pages and applies some sorting as per the user requirements.",
-//            summary = "Get All users with their associated employees",
-//            responses = {
-//                    @ApiResponse(
-//                            description = "Success",
-//                            responseCode = "200"
-//                    ),
-//                    @ApiResponse(
-//                            description = "Not Found",
-//                            responseCode = "404"
-//                    ),
-//                    @ApiResponse(
-//                            description = "Bad Request",
-//                            responseCode = "400"
-//                    ),
-//            }
-//    )
-//    @GetMapping("/user")
-//    public Page<UserResponseDTO> getAllUsers(HttpServletRequest request,
-//                                             @RequestParam(defaultValue = "0") int page,
-//                                             @RequestParam(defaultValue = "10") int size,
-//                                             @RequestParam(defaultValue = "username") String sortBy,
-//                                             @RequestParam(defaultValue = "desc") String direction){
-//        return userService.getAllUsers(request, page, size, sortBy, direction);
-//    }
+    @Operation(
+            description = "This endpoint allows ADMIN role to view all users. This method also renders everything in form of pages and applies some sorting as per the user requirements.",
+            summary = "Get All users with their associated employees",
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200"
+                    ),
+                    @ApiResponse(
+                            description = "Not Found",
+                            responseCode = "404"
+                    ),
+                    @ApiResponse(
+                            description = "Bad Request",
+                            responseCode = "400"
+                    ),
+            }
+    )
+    @GetMapping("/user/all")
+    public Page<UserResponseDTO> getAllUsers(HttpServletRequest request,
+                                             @RequestParam(defaultValue = "0") int page,
+                                             @RequestParam(defaultValue = "10") int size,
+                                             @RequestParam(defaultValue = "username") String sortBy,
+                                             @RequestParam(defaultValue = "desc") String direction){
+        return userService.getAllUsers(request, page, size, sortBy, direction);
+    }
 
     @Operation(
             description = "This endpoint allows a USER to delete one's account or the ADMIN to delete any account of choice.",
