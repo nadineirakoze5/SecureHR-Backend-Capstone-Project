@@ -1,6 +1,7 @@
 package org.example.employeemanagementapi.Security;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
 import org.example.employeemanagementapi.Models.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -55,6 +56,18 @@ public class JwtUtil {
             return false;
         }
     }
+
+    public String getEmailFromToken(HttpServletRequest request) {
+        String authHeader = request.getHeader("Authorization");
+
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            throw new IllegalArgumentException("Missing or invalid Authorization header");
+        }
+
+        String token = authHeader.substring(7); // remove Bearer
+        return extractEmail(token);
+    }
+
 }
 
 

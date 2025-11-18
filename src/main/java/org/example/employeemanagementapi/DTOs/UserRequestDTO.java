@@ -1,14 +1,15 @@
 package org.example.employeemanagementapi.DTOs;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-@Schema(description = "Request body for registering a new user")
-public class RegisterRequest {
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserRequestDTO {
 
     @NotBlank(message = "Username is required")
     private String username;
@@ -18,6 +19,8 @@ public class RegisterRequest {
     private String email;
 
     @NotBlank(message = "Password is required")
-    @Size(min = 6, message = "Password must be at least 6 characters")
     private String password;
+
+    private String role;
 }
+
