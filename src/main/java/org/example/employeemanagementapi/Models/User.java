@@ -22,7 +22,7 @@ public class User {
     private String password;
     private String role;
 
-    @OneToMany(mappedBy = "manager")
+    @OneToMany(mappedBy = "manager", fetch = FetchType.LAZY)
     private List<Employee> employees;
 
 }
