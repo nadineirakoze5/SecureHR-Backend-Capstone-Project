@@ -163,7 +163,7 @@ public class UserService {
         dto.setId(user.getId());
         dto.setEmail(user.getEmail());
         dto.setUsername(user.getUsername());
-        return dto;
+        return dto; 
     }
 }
 
